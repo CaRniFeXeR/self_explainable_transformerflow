@@ -1,6 +1,7 @@
 {
-    "type_name": "src.datastructures.configs.trainconfig.TrainConfig",
-    "name": "train_vie14_val_bln",
+    "type_name": "src.datastructures.configs.predictionconfig.PredictionConfig",
+    "name": "BUE DL4 Test Prediction config",
+    "file_extension" : ".png",
     "default_retrieve_options": {
         "shuffle": true,
         "use_convex_gates": true,
@@ -108,7 +109,7 @@
             0.34515222907066345
         ],
         "augmentation_config": {
-            "shift_propability": 0.7,
+            "shift_propability": -1.0,
             "shift_percent": 0.25,
             "polygon_scale_range" : {
                 "Syto" : 0.01,
@@ -119,38 +120,21 @@
                 "Blasts_CD20CD10" : 0.3,
                 "Blasts_CD38CD10" : 0.3
             },
-            "scale_propability" : 0.7,
+            "scale_propability" : -1.0,
             "scale_propability_2nd_marker" : 0.3
         }
     },
-    "train_data": {
+    "dataset": {
         "root_path": "E:\\Cached-FCM-Data\\train_forced_multi_test\\BLN ALL",
         "dataset_name": "BLN ALL",
         "file_extension": ".pkl",
         "sample_factory_type": "src.loader.FlowSample.flow_cached_file_factory.CachedSampleFactory"
     },
-    "validation_data": {
-        "root_path": "E:\\Cached-FCM-Data\\train_forced_multi_test\\VIE14 ALL",
-        "dataset_name": "VIE14 ALL",
-        "file_extension": ".pkl",
-        "sample_factory_type": "src.loader.FlowSample.flow_cached_file_factory.CachedSampleFactory"
-    },
+    "output_path": "./evaluation",
     "model_storage": {
-        "file_path": "./data/saved_models/train_vie14_val_bln",
-        "load_stats_from_file": false,
-        "gpu_name" :"cuda"
-    },
-    "train_params": {
-        "learning_rate": 0.001,
-        "weight_decay": 0.00000000000001,
-        "validation_interval": 50,
-        "n_training_epochs": 1500,
-        "training_batchsize": 2,
-        "clip_norm": 4.0,
-        "random_seed": 42,
-        "polygon_loss_weight": 1.0,
-        "saving_interval": 50,
-        "use_auxiliary_loss" : true
+        "file_path": "./data/saved_models/train_vie14_val_bln/29_07_2022 17_10.pt",
+        "load_stats_from_file": true,
+        "gpu_name" : "cuda"
     },
     "model_factory": {
         "model_type": "src.model.FlowGATR.FlowGATR",
@@ -167,14 +151,5 @@
             "n_hidden_layers_polygon_out": 2,
             "n_perciever_blocks_decoder" : 4
         }
-    },
-    "wandb_config": {
-        "entity": "floko",
-        "prj_name": "fcm-polygon-pred",
-        "notes": "",
-        "tags": [],
-        "enabled": true
-    },
-    "gpu_name": "cuda",
-    "n_workers": 0
+    }
 }

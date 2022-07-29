@@ -1,4 +1,4 @@
-from typing import List, Tuple
+from typing import List
 import numpy as np
 import pandas as pd
 
@@ -6,7 +6,6 @@ from src.utils.points_in_polygon_helper import points_in_polygon
 from ..datastructures.configs.dataproviderconfig import DataProviderConfig
 from ..loader.DataSet.BaseDataSet import BaseDataSet
 
-from ..loss.loss_utils import remove_padded_values_from_points_numpy
 from ..model.FlowGATR import FlowGATR
 from ..pipeline.DataProvider import DataProvider
 from ..pipeline.DeviceManager import DeviceManager
@@ -88,7 +87,6 @@ class ValidationService:
 
         for gt_gate, predicted_gate in zip(gt_gates, predicted_gates):
 
-            predicted_gate = remove_padded_values_from_points_numpy(predicted_gate)
             predicted_gate_hull = convex_hull(predicted_gate)
             predicted_poly_unscaled = unscale_polygon_points(predicted_gate_hull, self.retrieve_options.polygon_min, self.retrieve_options.polygon_max)
 
@@ -183,7 +181,7 @@ class ValidationService:
             sample_results.append(sample_validation_result[-1].mrd_true)
             sample_results.append(sample_validation_result[-1].mrd_predicted)
 
-            per_gate_results = pd.concat([per_gate_results, pd.Series(sample_results, index=col_names)], ignore_index=True)
+            per_gate_results = per_gate_results.append(pd.Series(sample_results, index=col_names), ignore_index=True)
 
         return per_gate_results
 
