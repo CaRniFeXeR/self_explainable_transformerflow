@@ -1,0 +1,180 @@
+{
+    "type_name": "src.datastructures.configs.trainconfig.TrainConfig",
+    "name": "gp66_train_bln_val_bue",
+    "default_retrieve_options": {
+        "shuffle": true,
+        "use_convex_gates": true,
+        "filter_gate" : "Intact",
+        "polygon_min": -0.1,
+        "polygon_max": 1.7,
+        "always_keep_blasts": true,
+        "gate_polygon_interpolation_length" : 120,
+        "gate_polygon_seq_length": 20,
+        "events_seq_length": 50000,
+        "used_markers": [
+            "CD10",
+            "CD19",
+            "CD20",
+            "CD34",
+            "CD38",
+            "CD45",
+            "FSC-A",
+            "FSC-W",
+            "SSC-A",
+            "SY41"
+        ],
+        "used_gates": [
+            "Syto",
+            "Singlets",
+            "Intact",
+            "CD19",
+            "Blasts_CD45CD10",
+            "Blasts_CD20CD10",
+            "Blasts_CD38CD10"
+        ],
+        "gate_definitions" : [
+            {
+                "name":"Syto",
+                "parent_name" : "",
+                "original_name" : "Syto",
+                "y_marker" : "FSC-A",
+                "x_marker" : "SY41"
+            },
+            {
+                "name": "Singlets",
+                "parent_name": "Syto",
+                "original_name" : "Singlets",
+                "y_marker": "SSC-A",
+                "x_marker": "FSC-W"
+            },
+            {
+                "name": "Intact",
+                "parent_name": "Singlets",
+                "original_name" : "Intact",
+                "x_marker": "FSC-A",
+                "y_marker": "SSC-A"
+            },
+            {
+                "name": "CD19",
+                "parent_name": "Intact",
+                "original_name" : "CD19",
+                "x_marker": "CD19",
+                "y_marker": "SSC-A"
+            },
+            {
+                "name": "Blasts_CD45CD10",
+                "original_name": "Blasts",
+                "parent_name": "CD19",
+                "x_marker": "CD45",
+                "y_marker": "CD10"
+            },
+            {
+                "name": "Blasts_CD20CD10",
+                "original_name": "Blasts",
+                "parent_name": "CD19",
+                "x_marker": "CD20",
+                "y_marker": "CD10"
+            },
+            {
+                "name": "Blasts_CD38CD10",
+                "original_name": "Blasts",
+                "parent_name": "CD19",
+                "x_marker": "CD38",
+                "y_marker": "CD10"
+            }
+        ],
+        "events_mean": [
+            1.2207406759262085,
+            1.245536208152771,
+            1.413953185081482,
+            0.9958911538124084,
+            2.1471059322357178,
+            2.0955066680908203,
+            1.4734785556793213,
+            0.42288827896118164,
+            0.8758889436721802,
+            2.472586154937744
+        ],
+        "events_sd": [
+            0.3791336715221405,
+            0.3249945342540741,
+            0.3320983946323395,
+            0.18722516298294067,
+            0.35046276450157166,
+            0.25932908058166504,
+            0.4003131091594696,
+            0.014336027204990387,
+            0.5279378294944763,
+            0.34515222907066345
+        ],
+        "augmentation_config": {
+            "shift_propability": 0.7,
+            "shift_percent": 0.25,
+            "polygon_scale_range" : {
+                "Syto" : 0.01,
+                "Singlets" : 0.01,
+                "Intact" : 0.05,
+                "CD19" : 0.15,
+                "Blasts_CD45CD10" : 0.3,
+                "Blasts_CD20CD10" : 0.3,
+                "Blasts_CD38CD10" : 0.3
+            },
+            "scale_propability" : 0.7,
+            "scale_propability_2nd_marker" : 0.3
+        }
+    },
+    "train_data": {
+        "root_path": "E:\\Cached-FCM-Data\\train_forced_multi_test\\BLN ALL",
+        "dataset_name": "BLN ALL",
+        "file_extension": ".pkl",
+        "sample_factory_type": "src.loader.FlowSample.flow_cached_file_factory.CachedSampleFactory"
+    },
+    "validation_data": {
+        "root_path": "E:\\Cached-FCM-Data\\train_forced_multi_test\\VIE14 ALL",
+        "dataset_name": "VIE14 ALL",
+        "file_extension": ".pkl",
+        "sample_factory_type": "src.loader.FlowSample.flow_cached_file_factory.CachedSampleFactory"
+    },
+    "model_storage": {
+        "file_path": "./data/saved_models/train_vie14_val_bln",
+        "load_stats_from_file": false,
+        "gpu_name" :"cuda"
+    },
+    "train_params": {
+        "learning_rate": 0.001,
+        "weight_decay": 0.00000000000001,
+        "validation_interval": 50,
+        "n_training_epochs": 1500,
+        "training_batchsize": 2,
+        "clip_norm": 4.0,
+        "random_seed": 42,
+        "polygon_loss_weight": 1.0,
+        "saving_interval": 50,
+        "use_auxiliary_loss" : true
+    },
+    "model_factory": {
+        "model_type": "src.model.FlowGATR.FlowGATR",
+        "params_type": "src.datastructures.configs.modelparams.ModelParams",
+        "params": {
+            "dim_input": 10,
+            "n_hidden_layers_ISAB": 2,
+            "n_hidden_layers_decoder": 2,
+            "n_obj_queries": 7,
+            "points_per_query" : 5,
+            "dim_latent": 36,
+            "n_polygon_out": 20,
+            "n_decoder_cross_att_heads": 6,
+            "n_hidden_layers_polygon_out": 2,
+            "n_perciever_blocks_decoder" : 4
+        }
+    },
+    "wandb_config": {
+        "entity": "floko",
+        "prj_name": "fcm-polygon-pred",
+        "notes": "",
+        "tags": [],
+        "enabled": true
+    },
+    "gpu_name": "cuda",
+    "n_workers": 0
+}

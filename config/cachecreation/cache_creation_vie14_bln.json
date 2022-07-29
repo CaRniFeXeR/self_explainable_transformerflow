@@ -1,0 +1,72 @@
+{
+    "type_name": "src.datastructures.configs.cachedatacreationconfig.CacheDataCreationConfig",
+    "output_location": "E:\\Cached-FCM-Data\\train_forced_multi_test",
+    "blacklist_path": "",
+    "ignore_blacklist": true,
+    "outlier_handler_config": {
+        "n_events_threshold": 300,
+        "alpha": 0.00001
+    },
+    "source_datasets": [
+        {
+            "root_path": "E:\\FCM-Data\\ALL\\VIE\\vie14",
+            "dataset_name": "VIE14 ALL"
+        },
+        {
+            "root_path": "E:\\FCM-Data\\ALL\\Berlin",
+            "dataset_name": "BLN ALL",
+            "file_extension": ".analysis"
+        }
+    ],
+    "gate_defintions": [
+        {
+            "name": "Syto",
+            "parent_name": "",
+            "original_name": "Syto",
+            "y_marker": "FSC-A",
+            "x_marker": "SY41"
+        },
+        {
+            "name": "Singlets",
+            "original_name": "Singlets",
+            "parent_name": "Syto",
+            "y_marker": "SSC-A",
+            "x_marker": "FSC-W"
+        },
+        {
+            "name": "Intact",
+            "original_name": "Intact",
+            "parent_name": "Singlets",
+            "x_marker": "FSC-A",
+            "y_marker": "SSC-A"
+        },
+        {
+            "name": "CD19",
+            "original_name": "CD19",
+            "parent_name": "Intact",
+            "x_marker": "CD19",
+            "y_marker": "SSC-A"
+        },
+        {
+            "name": "Blasts_CD45CD10",
+            "original_name": "Blasts",
+            "parent_name": "CD19",
+            "x_marker": "CD45",
+            "y_marker": "CD10"
+        },
+        {
+            "name": "Blasts_CD20CD10",
+            "original_name": "Blasts",
+            "parent_name": "CD19",
+            "x_marker": "CD20",
+            "y_marker": "CD10"
+        },
+        {
+            "name": "Blasts_CD38CD10",
+            "original_name": "Blasts",
+            "parent_name": "CD19",
+            "x_marker": "CD38",
+            "y_marker": "CD10"
+        }
+    ]
+}
