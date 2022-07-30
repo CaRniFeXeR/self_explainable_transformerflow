@@ -1,10 +1,10 @@
-from src.pipeline.ConfigParser import ConfigParser
+from cfgparser.json_config_parser import JSONConfigParser
 from pathlib import Path
 
 from src.pipeline.CacheCreation import CacheCreator
 
 
-configParser = ConfigParser()
+configParser = JSONConfigParser()
 
 
 config = configParser.parse_config_from_file(Path(".\config\\cachecreation\\cache_creation_vie14_bln.json"))
