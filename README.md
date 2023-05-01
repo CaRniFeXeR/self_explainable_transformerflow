@@ -2,6 +2,8 @@
 
 Official implementation of our work: *Towards Self-Explainable Transformers for Cell Classification in Flow Cytometry Data* by Florian Kowarsch, Lisa Weijler, Matthias Wödlinger, Michael Reiter, Margarita Maurer-Granofszky, Angela Schumich, Elisa O. Sajaroff, Stefanie Groeneveld-Krentz, Jorge G. Rossi, Leonid Karawajew, Richard Ratei, Michael N. Dworzak
 
+<img src="./figures/overview_approach_landscape.svg" style="background-color:white;">
+
 ## Installation
 
 All decencies are provided in *requirements.txt*. Install with:
@@ -9,10 +11,20 @@ All decencies are provided in *requirements.txt*. Install with:
 pip install -r requirements.txt
 ```
 
+This repo needs flowmepy to be installed. flowmepy is a python package for fcm data loading. For more information see: https://pypi.org/project/flowmepy/
+Install with:
+```
+pip install flowmepy
+```
+
+(If you run into issues with newer versions of dependencies check the `requirements.txt` file. It contains the environment package dependencies at the time of testing)
+
+IMPORTANT: As of now the flowmepy package is only supported on windows. If you are running a unix based system and want to try out our method you will need to preload the data (for example to a pandas dataframe) on a windows machine and then adapt the lines in the code where the flowme python package is called. Simply load your preloaded event matrices (dataframes or csv) instead of the `events = sample.events()` lines and load your gate label matrices (dataframes or csv) instead of the lines where `labels = sample.gate_labels()`. Sorry for the inconvenience, we are working on a solution.
+
 ## Usage
 
 In order to perform the experiments from the paper the following steps must be followed:
-1. Create preprocessed cache files from FCM files.
+1. Create preprocessed cache files from FCM files (includes event data as well as polygons).
 2. Train model with the created cache files.
 3. Test a trained model
 
@@ -150,4 +162,19 @@ In order to perform the experiments from the paper the following steps must be f
 
  ## Data
 
+The vie14, bln and bue data from our work can be downloaded from here: https://flowrepository.org/id/FR-FCM-ZYVT
+
  ## Cite
+
+ If you use this project please consider citing our work
+
+```
+@inproceedings{kowarsch2022towards,
+  title={Towards Self-explainable Transformers for Cell Classification in Flow Cytometry Data},
+  author={Kowarsch, Florian and Weijler, Lisa and W{\"o}dlinger, Matthias and Reiter, Michael and Maurer-Granofszky, Margarita and Schumich, Angela and Sajaroff, Elisa O and Groeneveld-Krentz, Stefanie and Rossi, Jorge G and Karawajew, Leonid and others},
+  booktitle={Interpretability of Machine Intelligence in Medical Image Computing: 5th International Workshop, iMIMIC 2022, Held in Conjunction with MICCAI 2022, Singapore, Singapore, September 22, 2022, Proceedings},
+  pages={22--32},
+  year={2022},
+  organization={Springer}
+}
+```
